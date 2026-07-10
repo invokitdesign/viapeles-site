@@ -504,6 +504,15 @@ body.is-ready .hero__row { opacity: 1; transform: none; }
   .reel__caption { max-width: none; }
 }
 
+/* Desktop: balance the cream band around the statement — the reel entry
+   (stage padding + rail + panel centring) adds a lot of space below the
+   phrase, so the statement gets more above and less below to even out. */
+@media (min-width: 901px) {
+  .statement { padding-top: clamp(170px, 23.5vh, 265px); padding-bottom: clamp(36px, 5vh, 56px); }
+  .reel__stage { padding-top: clamp(44px, 6vh, 64px); }
+  .reel__head { margin-bottom: 14px; }
+}
+
 /* Narrow: reduce nav to logo + language toggle (per spec) */
 @media (max-width: 640px) {
   .via-nav__links > a[data-nav-text] { display: none; }
