@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contacto — VIAPELES</title>
+  <meta name="description" content="Envia uma mensagem à VIAPELES — peles, couros, tecidos e complementos para estofadores.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.viapeles.pt/contacto.html">
+  <meta name="theme-color" content="#241C14">
+  <link rel="icon" href="assets/favicon.ico?v=3" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=3">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://use.typekit.net/mpo0vhn.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=29">
+</head>
+<body>
+  <header class="legal-header">
+    <a href="index.html" aria-label="VIAPELES — início" style="line-height:0"><img src="assets/viapeles-logo-dark.png" alt="VIAPELES — Peles &amp; Tecidos"></a>
+    <a class="legal-back zetta" href="index.html">← Voltar</a>
+  </header>
+
+  <main class="form-page">
+    <h1>Envia-nos uma mensagem</h1>
+    <p class="form-page__lead">Conta-nos o que procuras — peles, couros, tecidos ou complementos — e respondemos com a maior brevidade.</p>
+
+    <div id="form-banner"></div>
+
+    <!-- Envio via FormSubmit (sem backend). O JS abaixo submete por AJAX e mostra
+         o banner na própria página. O action é o fallback sem JavaScript. -->
+    <form class="form" id="contact-form" method="POST" action="https://formsubmit.co/geral@viapeles.pt" novalidate>
+      <input type="hidden" name="_subject" value="Nova mensagem do site VIAPELES">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <div class="form__field">
+        <label class="form__label" for="name">Nome</label>
+        <input class="form__input" type="text" id="name" name="name" required maxlength="100" autocomplete="name">
+      </div>
+      <div class="form__field">
+        <label class="form__label" for="email">Email</label>
+        <input class="form__input" type="email" id="email" name="email" required maxlength="150" autocomplete="email">
+      </div>
+      <div class="form__field">
+        <label class="form__label" for="message">Mensagem</label>
+        <textarea class="form__textarea" id="message" name="message" required maxlength="2000"></textarea>
+      </div>
+
+      <!-- honeypot anti-spam (campo _honey do FormSubmit): humanos não veem, bots preenchem -->
+      <div class="form__hp" aria-hidden="true">
+        <label>Não preencher <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <button class="form__submit" type="submit">Enviar mensagem</button>
+    </form>
+  </main>
+
+  <footer class="legal-foot zetta">
+    <span>© 2026 VIAPELES · Viana do Castelo · Portugal</span>
+    <span>Powered by <a href="https://www.invokit.pt" target="_blank" rel="noopener">invokit</a></span>
+  </footer>
+
+  <script>
+    // Submete o formulário por AJAX ao FormSubmit e mostra o banner na página.
+    (function () {
+      var form = document.getElementById("contact-form");
+      var banner = document.getElementById("form-banner");
+      if (!form) return;
+      var btn = form.querySelector(".form__submit");
+
+      function showOk() {
+        banner.className = "form__note form__note--ok";
+        banner.setAttribute("role", "status");
+        banner.textContent = "Mensagem enviada com sucesso. Obrigado — entraremos em contacto em breve.";
+        form.style.display = "none";
+        banner.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      function showErr() {
+        banner.className = "form__note form__note--err";
+        banner.setAttribute("role", "alert");
+        banner.textContent = "Não foi possível enviar a mensagem. Tenta novamente ou fala connosco por WhatsApp.";
+        btn.disabled = false;
+        btn.textContent = "Enviar mensagem";
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        // honeypot preenchido → bot: finge sucesso, não envia
+        var honey = form.querySelector('[name="_honey"]');
+        if (honey && honey.value) { showOk(); return; }
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+
+        btn.disabled = true;
+        btn.textContent = "A enviar…";
+
+        fetch("https://formsubmit.co/ajax/geral@viapeles.pt", {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: new FormData(form)
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (res) {
+            if (res && (res.success === "true" || res.success === true)) showOk();
+            else showErr();
+          })
+          .catch(showErr);
+      });
+    })();
+  </script>
+</body>
+</html>

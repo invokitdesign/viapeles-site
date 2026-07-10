@@ -1,0 +1,13 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*~
+
+# temp / working files
+_*
+node_modules/
+uploads/
+screenshots/
+docs/
