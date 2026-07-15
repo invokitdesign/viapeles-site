@@ -66,6 +66,12 @@ body {
 }
 body.is-loading { overflow: hidden; height: 100vh; }
 
+/* Arrow cursor everywhere — no text (I-beam) cursor over content.
+   Interactive elements keep the pointer; form fields keep the text caret. */
+* { cursor: default; }
+a[href], button, summary, label, select, [role="button"], [data-magnetic], [data-nav-toggle] { cursor: pointer; }
+input, textarea, [contenteditable="true"] { cursor: text; }
+
 a { color: var(--ink); text-decoration: none; transition: color .3s ease, opacity .3s ease; }
 a:hover { color: var(--dark-gold); }
 img { display: block; max-width: 100%; }
