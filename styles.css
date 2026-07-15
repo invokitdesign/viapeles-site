@@ -233,10 +233,10 @@ body.is-ready .hero__row { opacity: 1; transform: none; }
 
 /* CTA pill (hero) */
 .cta-pill {
-  display: inline-flex; align-items: center; gap: 14px;
-  padding: 16px 12px 16px 30px; border-radius: 100px;
+  display: inline-flex; align-items: center; gap: 16px;
+  padding: 20px 16px 20px 40px; border-radius: 100px;
   border: 1px solid rgba(245, 239, 228, .45); color: var(--hero-fg);
-  font-size: var(--fs-label); letter-spacing: .18em; text-transform: uppercase; white-space: nowrap;
+  font-size: clamp(11px, 1vw, 13px); letter-spacing: .18em; text-transform: uppercase; white-space: nowrap;
   transition: border-color .4s ease, color .4s ease, background .4s ease;
   position: relative; overflow: hidden;
 }
@@ -248,9 +248,10 @@ body.is-ready .hero__row { opacity: 1; transform: none; }
 .cta-pill:hover::before { transform: scaleX(1); }
 .cta-pill__icon {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 36px; height: 36px; border-radius: 50%;
+  width: 46px; height: 46px; border-radius: 50%;
   background: var(--dark-gold); color: var(--hero-fg); transition: transform .4s var(--ease);
 }
+.cta-pill__icon svg { width: 22px; height: 22px; }
 .cta-pill:hover .cta-pill__icon { transform: scale(1.08); }
 
 
