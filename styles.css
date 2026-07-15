@@ -251,7 +251,7 @@ body.is-ready .hero__row { opacity: 1; transform: none; }
   width: 36px; height: 36px; border-radius: 50%;
   background: var(--dark-gold); color: var(--hero-fg); transition: transform .4s var(--ease);
 }
-.cta-pill:hover .cta-pill__icon { transform: translateX(4px); }
+.cta-pill:hover .cta-pill__icon { transform: scale(1.08); }
 
 
 /* ============================================================
